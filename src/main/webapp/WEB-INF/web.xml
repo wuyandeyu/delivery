@@ -1,0 +1,37 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <!--应用描述名-->
+  <display-name>Archetype Created Web Application</display-name>
+  <!--web容器启动的初始化参数-->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:application.xml</param-value>
+  </context-param>
+  <!--配置tomcat监听器，该监听实现类实现了ServletContextListener接口,所以tomcat可以加载，从而自动装配application.xml中的信息，完成spring容器的初始化-->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!--配置springmvc中的前端控制器，前端控制器间接实现了servlet接口，所以tomcat可以完成springmvc容器的初始化-->
+  <servlet>
+    <servlet-name>DispatcherServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:springmvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <!--配置了springmvc前端控制器-->
+  <servlet-mapping>
+    <servlet-name>DispatcherServlet</servlet-name>
+    <!--拦截了项目后的所有请求-->
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <!--应用启动后显示欢迎页面-->
+  <welcome-file-list>
+    <welcome-file>login.html</welcome-file>
+  </welcome-file-list>
+</web-app>
